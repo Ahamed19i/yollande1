@@ -1,27 +1,56 @@
-import { motion } from 'motion/react';
-import { MessageCircle } from 'lucide-react';
+import { useState } from 'react';
 
 export default function WhatsAppButton() {
-  const phoneNumber = "221771722900"; 
+  const [dismissed, setDismissed] = useState(false);
+  const phoneNumber = "221771722900";
   const message = encodeURIComponent("Bonjour Chez Yollande, je souhaiterais passer une commande.");
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
+  if (dismissed) return null;
+
   return (
-    <motion.a
-      href={whatsappUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      className="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl flex items-center justify-center group"
-      aria-label="Commander via WhatsApp"
-    >
-      <MessageCircle size={28} className="group-hover:animate-pulse" />
-      <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 transition-all duration-300 whitespace-nowrap font-medium">
-        Commander via WhatsApp
-      </span>
-    </motion.a>
+    <div className="fixed bottom-14 right-4 z-50 w-72">
+      <div className="win-window">
+        <div className="win-titlebar !text-[10px]">
+          <div className="flex items-center gap-1">
+            <span>🟢</span>
+            <span>Nouvelle notification — WhatsApp</span>
+          </div>
+          <button
+            onClick={() => setDismissed(true)}
+            className="win-btn !px-1.5 !py-0 text-[10px] !text-win-black font-bold"
+          >
+            ✕
+          </button>
+        </div>
+        <div className="p-3 bg-win-gray">
+          <div className="flex gap-2 items-start mb-3">
+            <span className="text-2xl">🍽️</span>
+            <div>
+              <p className="text-[11px] font-bold text-win-black">Commandez maintenant !</p>
+              <p className="text-[10px] text-win-black leading-4">
+                Passez votre commande via WhatsApp — livraison ou sur place.
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-2 justify-end">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="win-btn win-btn-default text-[10px] font-bold text-win-blue"
+            >
+              📲 Commander
+            </a>
+            <button
+              onClick={() => setDismissed(true)}
+              className="win-btn text-[10px]"
+            >
+              Plus tard
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

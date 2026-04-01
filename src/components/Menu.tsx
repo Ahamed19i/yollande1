@@ -1,4 +1,3 @@
-import { motion } from 'motion/react';
 import { ShoppingCart, Star } from 'lucide-react';
 
 const menuItems = [
@@ -6,45 +5,48 @@ const menuItems = [
     id: 1,
     name: "Riz sauce arachide",
     description: "Un classique onctueux et savoureux, préparé avec soin.",
-    price: "2500 FCFA",
-    image: "https://picsum.photos/seed/riz-sauce/400/400",
+    price: "2 500 FCFA",
+    image: "https://picsum.photos/seed/riz-sauce/200/150",
     tag: "Populaire"
   },
   {
     id: 2,
     name: "Fufu + sauce",
     description: "L'authenticité togolaise dans votre assiette.",
-    price: "3500 FCFA",
-    image: "https://picsum.photos/seed/fufu/400/400",
+    price: "3 500 FCFA",
+    image: "https://picsum.photos/seed/fufu/200/150",
     tag: "Spécialité"
   },
   {
     id: 3,
     name: "Poulet braisé",
     description: "Poulet tendre et grillé à la perfection.",
-    price: "4000 FCFA",
-    image: "https://picsum.photos/seed/poulet/400/400"
+    price: "4 000 FCFA",
+    image: "https://picsum.photos/seed/poulet/200/150",
+    tag: null
   },
   {
     id: 4,
     name: "Poisson grillé",
     description: "Poisson frais du jour, grillé avec nos épices secrètes.",
-    price: "4500 FCFA",
-    image: "https://picsum.photos/seed/poisson/400/400"
+    price: "4 500 FCFA",
+    image: "https://picsum.photos/seed/poisson/200/150",
+    tag: null
   },
   {
     id: 5,
     name: "Attiéké poisson",
     description: "Semoule de manioc légère servie avec son poisson.",
-    price: "3500 FCFA",
-    image: "https://picsum.photos/seed/attieke/400/400"
+    price: "3 500 FCFA",
+    image: "https://picsum.photos/seed/attieke/200/150",
+    tag: null
   },
   {
     id: 6,
     name: "Jus naturel maison",
     description: "Bissap, Bouye ou Ditakh frais et naturels.",
-    price: "1000 FCFA",
-    image: "https://picsum.photos/seed/jus/400/400",
+    price: "1 000 FCFA",
+    image: "https://picsum.photos/seed/jus/200/150",
     tag: "Frais"
   }
 ];
@@ -58,78 +60,130 @@ export default function Menu() {
   };
 
   return (
-    <section id="menu" className="py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl mb-4"
-          >
-            Notre <span className="text-brand-red">Carte</span> Gourmande
-          </motion.h2>
-          <p className="text-gray-500 max-w-xl mx-auto uppercase tracking-[0.2em] text-sm font-bold">
-            Des saveurs authentiques, cuisinées chaque jour
-          </p>
-        </div>
+    <section id="menu" className="py-6 bg-win-teal px-4">
+      <div className="max-w-5xl mx-auto">
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {menuItems.map((item, index) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group"
-            >
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  referrerPolicy="no-referrer"
-                />
-                {item.tag && (
-                  <div className="absolute top-4 left-4 bg-brand-red text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
-                    {item.tag}
-                  </div>
-                )}
-                <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg flex items-center gap-1">
-                  <Star size={12} className="text-yellow-500 fill-yellow-500" />
-                  <span className="text-xs font-bold">4.9</span>
+        {/* Window container */}
+        <div className="win-window">
+          <div className="win-titlebar">
+            <div className="flex items-center gap-2">
+              <span>🍴</span>
+              <span>Notre Carte Gourmande — Chez Yollande</span>
+            </div>
+            <div className="flex gap-1">
+              <button className="win-btn !px-1.5 !py-0 text-[10px] !text-win-black">_</button>
+              <button className="win-btn !px-1.5 !py-0 text-[10px] !text-win-black">□</button>
+              <button className="win-btn !px-1.5 !py-0 text-[10px] !text-win-black font-bold">✕</button>
+            </div>
+          </div>
+
+          {/* Menu bar inside window */}
+          <div className="bg-win-gray border-b border-win-gray-dark flex gap-1 px-2 py-0.5 text-[11px]">
+            <span className="win-menuitem px-2 py-0.5 cursor-pointer">Fichier</span>
+            <span className="win-menuitem px-2 py-0.5 cursor-pointer">Édition</span>
+            <span className="win-menuitem px-2 py-0.5 cursor-pointer bg-win-blue text-white">Affichage</span>
+            <span className="win-menuitem px-2 py-0.5 cursor-pointer">Commande</span>
+            <span className="win-menuitem px-2 py-0.5 cursor-pointer">Aide</span>
+          </div>
+
+          <div className="p-4 bg-win-gray">
+            {/* Header */}
+            <div className="win-window mb-4">
+              <div className="win-titlebar">
+                <span>ℹ️ Information</span>
+              </div>
+              <div className="p-3 bg-win-gray flex items-center gap-3">
+                <div className="text-3xl">🍽️</div>
+                <div>
+                  <p className="text-[13px] font-bold text-win-blue">Notre Carte Gourmande</p>
+                  <p className="text-[11px] text-win-black">Des saveurs authentiques, cuisinées chaque jour avec des produits frais.</p>
                 </div>
               </div>
+            </div>
 
-              <div className="p-8">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold">{item.name}</h3>
-                  <span className="text-brand-red font-bold">{item.price}</span>
-                </div>
-                <p className="text-gray-500 text-sm mb-6 line-clamp-2">
-                  {item.description}
-                </p>
-                <button
-                  onClick={() => handleOrder(item.name)}
-                  className="w-full bg-brand-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-brand-red transition-colors"
-                >
-                  <ShoppingCart size={18} />
-                  Commander
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+            {/* Items table */}
+            <div className="win-sunken bg-win-white overflow-auto">
+              <table className="w-full text-[11px] border-collapse">
+                <thead>
+                  <tr className="bg-win-blue text-white text-left">
+                    <th className="px-2 py-1 w-8">#</th>
+                    <th className="px-2 py-1 w-20">Photo</th>
+                    <th className="px-2 py-1">Nom du plat</th>
+                    <th className="px-2 py-1">Description</th>
+                    <th className="px-2 py-1 w-20">Note</th>
+                    <th className="px-2 py-1 w-24">Prix</th>
+                    <th className="px-2 py-1 w-24">Statut</th>
+                    <th className="px-2 py-1 w-28">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {menuItems.map((item, idx) => (
+                    <tr
+                      key={item.id}
+                      className="border-b border-win-gray-dark hover:bg-win-blue hover:text-white group transition-colors"
+                    >
+                      <td className="px-2 py-1 text-center">{idx + 1}</td>
+                      <td className="px-2 py-1">
+                        <div className="win-sunken w-16 h-12 overflow-hidden">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-full h-full object-cover"
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                      </td>
+                      <td className="px-2 py-1 font-bold">{item.name}</td>
+                      <td className="px-2 py-1 text-[10px] max-w-[200px]">{item.description}</td>
+                      <td className="px-2 py-1">
+                        <div className="flex gap-0.5">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} size={9} className="text-yellow-600 fill-yellow-600 group-hover:text-yellow-300 group-hover:fill-yellow-300" />
+                          ))}
+                        </div>
+                      </td>
+                      <td className="px-2 py-1 font-bold text-win-blue group-hover:text-win-yellow">{item.price}</td>
+                      <td className="px-2 py-1">
+                        {item.tag ? (
+                          <span className="bg-win-red text-white text-[9px] px-1.5 py-0.5 font-bold uppercase">{item.tag}</span>
+                        ) : (
+                          <span className="text-[9px] text-win-gray-dark">Disponible</span>
+                        )}
+                      </td>
+                      <td className="px-2 py-1">
+                        <button
+                          onClick={() => handleOrder(item.name)}
+                          className="win-btn !text-[10px] flex items-center gap-1 w-full justify-center"
+                        >
+                          <ShoppingCart size={10} />
+                          Commander
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-gray-400 italic mb-4">Besoin de quelque chose de spécifique ?</p>
-          <a
-            href="https://wa.me/221770000000"
-            className="inline-flex items-center gap-2 text-brand-red font-bold hover:underline underline-offset-4"
-          >
-            Contactez-nous pour un menu personnalisé
-          </a>
+            {/* Footer bar */}
+            <div className="mt-3 flex items-center justify-between">
+              <p className="text-[10px] text-win-black italic">
+                Besoin de quelque chose de spécifique ? Contactez-nous pour un menu personnalisé.
+              </p>
+              <a
+                href="https://wa.me/221770000000"
+                className="win-btn win-btn-default text-[10px] text-win-blue hover:underline"
+              >
+                📞 Menu personnalisé
+              </a>
+            </div>
+          </div>
+
+          {/* Status bar */}
+          <div className="win-statusbar">
+            <div className="win-sunken px-3 py-0.5 flex-1">{menuItems.length} objet(s)</div>
+            <div className="win-sunken px-3 py-0.5 w-32">Tous disponibles</div>
+          </div>
         </div>
       </div>
     </section>

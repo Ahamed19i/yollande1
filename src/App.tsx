@@ -14,7 +14,7 @@ import WhatsAppButton from './components/WhatsAppButton';
 
 export default function App() {
   return (
-    <div className="relative">
+    <div className="win-desktop min-h-screen">
       <Navbar />
       <main>
         <Hero />
