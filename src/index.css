@@ -1,21 +1,203 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&display=swap');
 
 @theme {
-  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
-  
-  --color-brand-red: #E31837;
-  --color-brand-black: #0A0A0A;
-  --color-brand-white: #FFFFFF;
+  --font-sans: "Tahoma", "MS Sans Serif", "Arial", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Times New Roman", "Georgia", ui-serif, serif;
+  --font-mono: "Courier New", ui-monospace, monospace;
+
+  --color-win-gray:       #D4D0C8;
+  --color-win-gray-dark:  #808080;
+  --color-win-gray-light: #EFEFEF;
+  --color-win-blue:       #000080;
+  --color-win-blue-light: #1084D0;
+  --color-win-teal:       #008080;
+  --color-win-white:      #FFFFFF;
+  --color-win-black:      #000000;
+  --color-win-red:        #E31837;
+  --color-win-yellow:     #FFFF99;
 }
 
 @layer base {
   body {
-    @apply bg-brand-white text-brand-black font-sans antialiased;
+    @apply bg-win-teal text-win-black font-sans;
+    font-size: 11px;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-bold;
+    @apply font-sans font-bold;
   }
+}
+
+/* ── Classic Win2k raised/sunken bevel helpers ────────────────────── */
+.win-raised {
+  border-top:    2px solid #FFFFFF;
+  border-left:   2px solid #FFFFFF;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+  box-shadow: 1px 1px 0 #404040;
+}
+
+.win-sunken {
+  border-top:    2px solid #808080;
+  border-left:   2px solid #808080;
+  border-right:  2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+}
+
+.win-inset {
+  border: 2px solid;
+  border-color: #808080 #FFFFFF #FFFFFF #808080;
+}
+
+.win-window {
+  background: #D4D0C8;
+  border-top:    2px solid #FFFFFF;
+  border-left:   2px solid #FFFFFF;
+  border-right:  2px solid #404040;
+  border-bottom: 2px solid #404040;
+  box-shadow: 1px 1px 0 #808080 inset, -1px -1px 0 #808080 inset;
+}
+
+.win-titlebar {
+  background: linear-gradient(to right, #000080, #1084D0);
+  color: #FFFFFF;
+  padding: 3px 6px;
+  font-size: 11px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.win-titlebar-teal {
+  background: linear-gradient(to right, #008080, #00AAAA);
+}
+
+.win-btn {
+  background: #D4D0C8;
+  font-family: "Tahoma", "MS Sans Serif", sans-serif;
+  font-size: 11px;
+  padding: 4px 14px;
+  cursor: pointer;
+  border-top:    2px solid #FFFFFF;
+  border-left:   2px solid #FFFFFF;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+  box-shadow: 1px 1px 0 #404040;
+  white-space: nowrap;
+}
+
+.win-btn:active {
+  border-top:    2px solid #808080;
+  border-left:   2px solid #808080;
+  border-right:  2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  box-shadow: none;
+  padding: 5px 13px 3px 15px;
+}
+
+.win-btn:focus {
+  outline: 1px dotted #000;
+  outline-offset: -4px;
+}
+
+.win-btn-default {
+  border: 2px solid #000080;
+}
+
+.win-input {
+  background: #FFFFFF;
+  font-family: "Tahoma", "MS Sans Serif", sans-serif;
+  font-size: 11px;
+  padding: 3px 5px;
+  border-top:    2px solid #808080;
+  border-left:   2px solid #808080;
+  border-right:  2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  box-shadow: inset 1px 1px 0 #404040;
+  outline: none;
+}
+
+.win-input:focus {
+  outline: none;
+}
+
+/* Scrollbar (webkit) */
+::-webkit-scrollbar { width: 16px; }
+::-webkit-scrollbar-track { background: #C0C0C0; }
+::-webkit-scrollbar-thumb {
+  background: #D4D0C8;
+  border-top:    2px solid #FFFFFF;
+  border-left:   2px solid #FFFFFF;
+  border-right:  2px solid #808080;
+  border-bottom: 2px solid #808080;
+}
+
+/* Desktop teal background texture */
+.win-desktop {
+  background-color: #008080;
+}
+
+/* Menu bar item */
+.win-menuitem:hover {
+  background: #000080;
+  color: #FFFFFF;
+}
+
+/* Status bar */
+.win-statusbar {
+  background: #D4D0C8;
+  border-top: 1px solid #808080;
+  font-size: 10px;
+  padding: 2px 6px;
+  display: flex;
+  gap: 8px;
+}
+
+/* Taskbar */
+.win-taskbar {
+  background: linear-gradient(to bottom, #1f6db5 0%, #0a3c78 100%);
+  border-top: 2px solid #5b9bd5;
+}
+
+/* Marquee text */
+.win-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Table alternating rows */
+.win-table tr:nth-child(even) {
+  background: #E8E4DC;
+}
+
+/* Progress bar */
+.win-progress-bar {
+  background: #D4D0C8;
+  border-top: 1px solid #808080;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  height: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.win-progress-fill {
+  background: repeating-linear-gradient(
+    90deg,
+    #000080 0px,
+    #000080 10px,
+    #1084D0 10px,
+    #1084D0 14px
+  );
+  height: 100%;
+  animation: progress-anim 2s linear infinite;
+}
+
+@keyframes progress-anim {
+  from { background-position: 0 0; }
+  to   { background-position: 28px 0; }
 }

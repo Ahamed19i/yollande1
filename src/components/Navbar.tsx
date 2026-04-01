@@ -1,7 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, UtensilsCrossed } from 'lucide-react';
-import { cn } from '@/src/lib/utils';
+import { useState } from 'react';
+import { UtensilsCrossed, Minus, Square, X, ChevronDown } from 'lucide-react';
 
 const navLinks = [
   { name: 'Accueil', href: '#accueil' },
@@ -11,86 +9,108 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-40 transition-all duration-300 px-6 py-4",
-        scrolled ? "bg-brand-white/90 backdrop-blur-md shadow-md py-3" : "bg-transparent"
-      )}
-    >
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <a href="#accueil" className="flex items-center gap-2 group">
-          <div className="bg-brand-red p-2 rounded-lg rotate-3 group-hover:rotate-0 transition-transform">
-            <UtensilsCrossed className="text-white" size={24} />
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {/* Title-bar style top bar */}
+      <div className="win-titlebar win-titlebar-teal select-none">
+        <div className="flex items-center gap-2">
+          <div className="bg-win-white/20 p-0.5 rounded-sm">
+            <UtensilsCrossed className="text-white" size={14} />
           </div>
-          <span className="text-xl md:text-2xl font-serif font-bold tracking-tighter">
-            Restaurant togolais chez <span className="text-brand-red">Yollande</span>
+          <span className="text-[11px] font-bold tracking-wide">
+            Restaurant togolais chez Yollande — Chez Yollande, Médina Dakar
           </span>
-        </a>
+        </div>
+        {/* Window controls */}
+        <div className="flex gap-1">
+          <button className="win-btn !px-2 !py-0.5 text-[10px]" title="Réduire">
+            <Minus size={8} />
+          </button>
+          <button className="win-btn !px-2 !py-0.5 text-[10px]" title="Agrandir">
+            <Square size={8} />
+          </button>
+          <button className="win-btn !px-2 !py-0.5 text-[10px] !bg-win-red !text-white" title="Fermer">
+            <X size={8} />
+          </button>
+        </div>
+      </div>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+      {/* Menu bar */}
+      <nav className="bg-win-gray border-b border-win-gray-dark flex items-center gap-0 px-2 py-0.5 relative" role="menubar">
+        {/* Address bar style brand */}
+        <div className="flex items-center gap-1 mr-4 border-r border-win-gray-dark pr-4">
+          <UtensilsCrossed size={14} className="text-win-blue" />
+          <a href="#accueil" className="text-[11px] font-bold text-win-blue hover:underline">Chez Yollande</a>
+        </div>
+
+        {/* Nav links as "menu bar items" */}
+        <div className="hidden md:flex items-center">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
-              className="text-sm font-semibold uppercase tracking-widest hover:text-brand-red transition-colors"
+              className="win-menuitem px-3 py-1 text-[11px] cursor-pointer flex items-center gap-0.5"
             >
               {link.name}
             </a>
           ))}
+          {/* Commander as a special button */}
           <a
             href="#menu"
-            className="bg-brand-black text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-brand-red transition-all transform hover:-translate-y-0.5"
+            className="win-btn win-btn-default ml-4 !text-[11px] font-bold text-win-blue"
           >
             Commander
           </a>
         </div>
 
-        {/* Mobile Toggle */}
-        <button className="md:hidden text-brand-black" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden win-btn ml-auto"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Menu"
+        >
+          Menu ▼
         </button>
-      </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-brand-white shadow-xl border-t border-gray-100 p-6 flex flex-col gap-4 md:hidden"
-          >
-            {navLinks.map((link) => (
+        {/* Mobile dropdown */}
+        {mobileOpen && (
+          <div className="absolute top-full left-0 right-0 win-window z-50 md:hidden">
+            <div className="win-titlebar text-[10px]">Navigation</div>
+            <div className="p-2 flex flex-col gap-1">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="win-menuitem px-3 py-1 text-[11px] block"
+                >
+                  {link.name}
+                </a>
+              ))}
               <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="text-lg font-bold hover:text-brand-red transition-colors"
+                href="#menu"
+                onClick={() => setMobileOpen(false)}
+                className="win-btn win-btn-default text-center mt-2"
               >
-                {link.name}
+                Commander Maintenant
               </a>
-            ))}
-            <a
-              href="#menu"
-              onClick={() => setIsOpen(false)}
-              className="bg-brand-red text-white text-center py-4 rounded-xl font-bold mt-2"
-            >
-              Commander Maintenant
-            </a>
-          </motion.div>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
-    </nav>
+      </nav>
+
+      {/* Address / toolbar bar */}
+      <div className="bg-win-gray border-b border-win-gray-dark flex items-center gap-2 px-2 py-1">
+        <span className="text-[10px] text-win-black font-bold">Adresse&nbsp;:</span>
+        <div className="win-input flex-1 text-[10px] flex items-center gap-1">
+          <span className="text-win-blue">🌍</span>
+          <span>restaurant-chez-yollande.sn/accueil</span>
+        </div>
+        <button className="win-btn text-[10px]">Aller</button>
+      </div>
+    </header>
   );
 }
